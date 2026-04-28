@@ -2,7 +2,8 @@
 <html lang="fr" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <title>🎓 Apprendre l'Arabe - تعلم العربية</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -25,7 +26,7 @@
         </div>
 
         <div class="home-modules">
-            <button class="module-card" onclick="startModule('assembly')">
+            <button class="module-card" data-action="module" data-module="assembly">
                 <div class="module-icon">🧩</div>
                 <div class="module-info">
                     <h3>Assemblage de Lettres</h3>
@@ -35,7 +36,7 @@
                 <div class="module-arrow">→</div>
             </button>
 
-            <button class="module-card" onclick="startModule('letterforms')">
+            <button class="module-card" data-action="module" data-module="letterforms">
                 <div class="module-icon">✏️</div>
                 <div class="module-info">
                     <h3>Formes des Lettres</h3>
@@ -45,7 +46,7 @@
                 <div class="module-arrow">→</div>
             </button>
 
-            <button class="module-card" onclick="startModule('gender')">
+            <button class="module-card" data-action="module" data-module="gender">
                 <div class="module-icon">🔄</div>
                 <div class="module-info">
                     <h3>Masculin / Féminin</h3>
@@ -55,7 +56,7 @@
                 <div class="module-arrow">→</div>
             </button>
 
-            <button class="module-card" onclick="startModule('translation')">
+            <button class="module-card" data-action="module" data-module="translation">
                 <div class="module-icon">🌍</div>
                 <div class="module-info">
                     <h3>Traduction FR → AR</h3>
@@ -90,8 +91,8 @@
 <div id="assembly-screen" class="screen">
     <div class="game-container">
         <div class="game-header">
-            <button class="btn-back" onclick="goHome()">← Accueil</button>
-            <h2 class="game-title">🧩 Assemblage de Lettres</h2>
+            <button class="btn-back" data-action="home">← Accueil</button>
+            <h2 class="game-title">🧩 Assemblage</h2>
             <div class="game-stats">
                 <span class="level-badge" id="asm-level">Niveau 1</span>
                 <span class="star-count" id="asm-stars">⭐ 0</span>
@@ -99,14 +100,14 @@
         </div>
 
         <div class="level-selector">
-            <button class="level-btn active" onclick="setAssemblyLevel(1)" id="asm-lvl-1">Niveau 1<br><small>Mots courts</small></button>
-            <button class="level-btn" onclick="setAssemblyLevel(2)" id="asm-lvl-2">Niveau 2<br><small>Mots moyens</small></button>
-            <button class="level-btn" onclick="setAssemblyLevel(3)" id="asm-lvl-3">Niveau 3<br><small>Mots longs</small></button>
+            <button class="level-btn active" data-action="asm-level" data-level="1" id="asm-lvl-1">Niv. 1<br><small>Courts</small></button>
+            <button class="level-btn" data-action="asm-level" data-level="2" id="asm-lvl-2">Niv. 2<br><small>Moyens</small></button>
+            <button class="level-btn" data-action="asm-level" data-level="3" id="asm-lvl-3">Niv. 3<br><small>Longs</small></button>
         </div>
 
         <div class="word-display">
             <div class="french-word" id="asm-french">chat</div>
-            <button class="btn-toggle-translation" id="asm-toggle" onclick="toggleTranslation('asm')">
+            <button class="btn-toggle-translation" id="asm-toggle" data-action="toggle" data-prefix="asm">
                 👁️ Voir la traduction
             </button>
             <div class="arabic-word hidden" id="asm-arabic">قِطّ</div>
@@ -118,18 +119,16 @@
         </div>
 
         <div class="drop-zone" id="asm-dropzone">
-            <p class="drop-placeholder" id="asm-placeholder">Glisse les lettres ici →</p>
+            <p class="drop-placeholder" id="asm-placeholder">Appuie sur les lettres pour les placer ici →</p>
         </div>
 
-        <div class="letter-pool" id="asm-letters">
-            <!-- Lettres générées dynamiquement -->
-        </div>
+        <div class="letter-pool" id="asm-letters"></div>
 
         <div class="game-actions">
-            <button class="btn-action btn-check" onclick="checkAssembly()">✓ Vérifier</button>
-            <button class="btn-action btn-hint" onclick="giveHint('asm')">💡 Indice</button>
-            <button class="btn-action btn-skip" onclick="skipWord('asm')">⏭️ Passer</button>
-            <button class="btn-action btn-audio" onclick="speakArabic('asm')">🔊 Écouter</button>
+            <button class="btn-action btn-check" data-action="check-asm">✓ Vérifier</button>
+            <button class="btn-action btn-hint" data-action="hint" data-module="asm">💡 Indice</button>
+            <button class="btn-action btn-skip" data-action="skip" data-module="asm">⏭️ Passer</button>
+            <button class="btn-action btn-audio" data-action="speak" data-module="asm">🔊</button>
         </div>
 
         <div class="feedback-area" id="asm-feedback"></div>
@@ -140,24 +139,24 @@
 <div id="letterforms-screen" class="screen">
     <div class="game-container">
         <div class="game-header">
-            <button class="btn-back" onclick="goHome()">← Accueil</button>
-            <h2 class="game-title">✏️ Formes des Lettres</h2>
+            <button class="btn-back" data-action="home">← Accueil</button>
+            <h2 class="game-title">✏️ Formes</h2>
             <div class="game-stats">
                 <span class="star-count" id="lf-stars">⭐ 0</span>
             </div>
         </div>
 
         <div class="letterforms-intro">
-            <p class="rule-box">📌 En arabe, chaque lettre change de forme selon sa position dans le mot : <strong>isolée</strong>, <strong>début</strong>, <strong>milieu</strong> ou <strong>fin</strong>.</p>
+            <p class="rule-box">📌 En arabe, chaque lettre change de forme selon sa position : <strong>isolée</strong>, <strong>début</strong>, <strong>milieu</strong> ou <strong>fin</strong>.</p>
         </div>
 
         <div class="letter-navigator">
-            <button class="btn-nav" onclick="prevLetter()">◀</button>
-            <div class="letter-showcase" id="lf-showcase">
+            <button class="btn-nav" data-action="prev-letter">◀</button>
+            <div class="letter-showcase">
                 <div class="showcase-letter" id="lf-main-letter">ب</div>
                 <div class="showcase-name" id="lf-letter-name">Ba - باء</div>
             </div>
-            <button class="btn-nav" onclick="nextLetter()">▶</button>
+            <button class="btn-nav" data-action="next-letter">▶</button>
         </div>
 
         <div class="forms-grid" id="lf-forms-grid">
@@ -185,9 +184,7 @@
 
         <div class="word-example-section">
             <h3>Exemples dans des mots :</h3>
-            <div class="word-examples" id="lf-examples">
-                <!-- Généré dynamiquement -->
-            </div>
+            <div class="word-examples" id="lf-examples"></div>
         </div>
 
         <div class="lf-quiz-section" id="lf-quiz">
@@ -203,8 +200,8 @@
 <div id="gender-screen" class="screen">
     <div class="game-container">
         <div class="game-header">
-            <button class="btn-back" onclick="goHome()">← Accueil</button>
-            <h2 class="game-title">🔄 Masculin / Féminin</h2>
+            <button class="btn-back" data-action="home">← Accueil</button>
+            <h2 class="game-title">🔄 Masc / Fém</h2>
             <div class="game-stats">
                 <span class="star-count" id="gen-stars">⭐ 0</span>
             </div>
@@ -212,7 +209,7 @@
 
         <div class="gender-rule">
             <div class="rule-box">
-                📌 <strong>Règle :</strong> En arabe, on ajoute souvent <span class="highlight-ta">ة</span> (ta marbuta) à la fin du mot masculin pour former le féminin.
+                📌 <strong>Règle :</strong> En arabe, on ajoute souvent <span class="highlight-ta">ة</span> (ta marbuta) pour former le féminin.
             </div>
         </div>
 
@@ -239,14 +236,12 @@
             <p class="drop-placeholder" id="gen-placeholder">Construis le féminin ici →</p>
         </div>
 
-        <div class="letter-pool" id="gen-letters">
-            <!-- Lettres générées dynamiquement -->
-        </div>
+        <div class="letter-pool" id="gen-letters"></div>
 
         <div class="game-actions">
-            <button class="btn-action btn-check" onclick="checkGender()">✓ Vérifier</button>
-            <button class="btn-action btn-hint" onclick="giveHint('gen')">💡 Indice</button>
-            <button class="btn-action btn-audio" onclick="speakArabic('gen')">🔊 Écouter</button>
+            <button class="btn-action btn-check" data-action="check-gen">✓ Vérifier</button>
+            <button class="btn-action btn-hint" data-action="hint" data-module="gen">💡 Indice</button>
+            <button class="btn-action btn-audio" data-action="speak" data-module="gen">🔊</button>
         </div>
 
         <div class="feedback-area" id="gen-feedback"></div>
@@ -257,16 +252,16 @@
 <div id="translation-screen" class="screen">
     <div class="game-container">
         <div class="game-header">
-            <button class="btn-back" onclick="goHome()">← Accueil</button>
-            <h2 class="game-title">🌍 Traduction FR → AR</h2>
+            <button class="btn-back" data-action="home">← Accueil</button>
+            <h2 class="game-title">🌍 Traduction</h2>
             <div class="game-stats">
                 <span class="star-count" id="tr-stars">⭐ 0</span>
             </div>
         </div>
 
         <div class="tr-mode-selector">
-            <button class="mode-btn active" onclick="setTranslationMode('mcq')" id="tr-mode-mcq">Choix Multiple</button>
-            <button class="mode-btn" onclick="setTranslationMode('build')" id="tr-mode-build">Assemblage</button>
+            <button class="mode-btn active" data-action="tr-mode" data-mode="mcq" id="tr-mode-mcq">Choix Multiple</button>
+            <button class="mode-btn" data-action="tr-mode" data-mode="build" id="tr-mode-build">Assemblage</button>
         </div>
 
         <div class="progress-bar-container">
@@ -282,9 +277,7 @@
         <!-- Mode Choix Multiple -->
         <div class="mcq-section" id="tr-mcq-section">
             <p class="mcq-instruction">Choisis la bonne traduction :</p>
-            <div class="mcq-options" id="tr-mcq-options">
-                <!-- Généré dynamiquement -->
-            </div>
+            <div class="mcq-options" id="tr-mcq-options"></div>
         </div>
 
         <!-- Mode Assemblage -->
@@ -294,13 +287,13 @@
             </div>
             <div class="letter-pool" id="tr-letters"></div>
             <div class="game-actions">
-                <button class="btn-action btn-check" onclick="checkTranslation()">✓ Vérifier</button>
-                <button class="btn-action btn-hint" onclick="giveHint('tr')">💡 Indice</button>
+                <button class="btn-action btn-check" data-action="check-tr">✓ Vérifier</button>
+                <button class="btn-action btn-hint" data-action="hint" data-module="tr">💡 Indice</button>
             </div>
         </div>
 
         <div class="game-actions" id="tr-audio-section">
-            <button class="btn-action btn-audio" onclick="speakArabic('tr')">🔊 Écouter</button>
+            <button class="btn-action btn-audio" data-action="speak" data-module="tr">🔊 Écouter</button>
         </div>
 
         <div class="feedback-area" id="tr-feedback"></div>
@@ -316,8 +309,8 @@
         <p class="victory-message" id="victory-message">Tu as terminé ce niveau !</p>
         <div class="victory-stats" id="victory-stats"></div>
         <div class="victory-actions">
-            <button class="btn-action btn-check" onclick="replayModule()">🔁 Rejouer</button>
-            <button class="btn-action btn-skip" onclick="goHome(); closeModal();">🏠 Accueil</button>
+            <button class="btn-action btn-check" data-action="replay">🔁 Rejouer</button>
+            <button class="btn-action btn-skip" data-action="home-close">🏠 Accueil</button>
         </div>
     </div>
 </div>
